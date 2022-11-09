@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jup1
+spec:
+  selector:
+    matchLabels:
+      app: tpljup1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tpljup1
+    spec:
+      containers:
+      - name: cnt-jup1
+        image: jupyter/minimal-notebook:ubuntu-20.04
+        env:
+        - name: GRANT_SUDO
+          value: "yes"
+        - name: NB_USER
+          value: "alexey"
+        - name: CHOWN_HOME
+          value: "yes"
+        securityContext:
+          allowPrivilegeEscalation: true
+          runAsUser: 0
+
+
+#  docker run --name jup2 -dit -p 9000:8888 -e GRANT_SUDO=yes -e NB_USER="alexey" -e CHOWN_HOME=yes -u root -e GEN_CERT=yes jupyter/minimal-notebook:ubuntu-20.04
