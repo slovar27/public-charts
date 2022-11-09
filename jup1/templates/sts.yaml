@@ -3,6 +3,7 @@ kind: StatefulSet
 metadata:
   name: jup1
 spec:
+  serviceName: "service-name-env2"
   selector:
     matchLabels:
       app: tpljup1
